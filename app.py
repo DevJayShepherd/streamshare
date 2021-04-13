@@ -1,11 +1,15 @@
+import os
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def create_app():
     app = Flask(__name__)
-    client = MongoClient('mongodb+srv://admindb:UlvbCECQa5VZKWFb@cluster0.bwcqx.mongodb.net/test')
+    client = MongoClient(os.environ.get("MONGODB_URI"))
     app.db = client.streamshare
 
     @app.route('/', methods=['GET', 'POST'])
